@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import daisyui from 'daisyui'
 export default {
   content: [
     "./index.html",
@@ -9,7 +10,10 @@ export default {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
       },
+      colors:{
+        mainClr:"#2563eb"
+      }
     },
   },
-  plugins: [],
+  plugins: [daisyui],
 }
