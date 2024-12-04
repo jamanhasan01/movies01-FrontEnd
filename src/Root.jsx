@@ -8,7 +8,7 @@ const Root = () => {
   return (
     <div className="font-poppins">
       <Navbar></Navbar>
-      <div className="max-w-[1240px] mx-auto px-5 md:px-0">
+      <div className="max-w-[1240px] mx-auto px-5 md:px-0 min-h-[350px]">
       <Outlet></Outlet>
       </div>
       <Footer></Footer>

@@ -22,7 +22,9 @@ let router=createBrowserRouter([
             },
             {
                 path:'allmovies',
-                element:<Allmovies></Allmovies>
+                element:<Allmovies></Allmovies>,
+                loader:()=>fetch('https://movies01-backend.vercel.app/movies')
+                
             },
             {
                 path:'favmovies',

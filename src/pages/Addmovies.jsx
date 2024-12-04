@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { moviesContext } from "../provider/MoviesProvider";
 
 const AddMovies = () => {
+    let {setmovies}=useContext(moviesContext)
   const handleMovieAdd = (e) => {
     e.preventDefault(); // Prevent form submission
     const form = new FormData(e.target); // Get form data
@@ -11,13 +13,13 @@ const AddMovies = () => {
     const genres = form
       .get("genres")
       .split(",")
-      .map((genre) => genre.trim()); // Split into array
-    const duration = Number(form.get("duration")); // Convert to number
-    const releaseYear = Number(form.get("releaseYear")); // Convert to number
-    const rating = Number(form.get("rating")); // Convert to number
+      .map((genre) => genre.trim()); 
+    const duration = Number(form.get("duration")); 
+    const releaseYear = Number(form.get("releaseYear")); 
+    const rating = Number(form.get("rating")); 
     const summary = form.get("summary");
 
-    // Log the collected data
+    
     const movieData = {
       title,
       poster,
@@ -27,7 +29,22 @@ const AddMovies = () => {
       rating,
       summary,
     };
-    console.log(movieData);
+    
+    fetch('https://movies01-backend.vercel.app/movies',{
+        method:"POST",
+        headers:{
+            'content-type':"application/json"
+        },
+        body:JSON.stringify(movieData)
+    })
+    .then(res=>res.json())
+    .then((data)=>{
+        if(data.acknowledged==true){
+            alert('done')
+            e.target.reset()
+        }
+    }
+    )
 
     // Replace with API call or logic to save the data
   };
@@ -130,7 +147,7 @@ const AddMovies = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="bg-mainClr text-white px-4 py-2 rounded w-full"
+            className="bg-mainClr text-white px-4 py-2 rounded w-full hover:bg-white hover:text-black/100"
           >
             Add Movie
           </button>
