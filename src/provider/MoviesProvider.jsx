@@ -4,11 +4,17 @@ export let moviesContext=createContext()
 
 const MoviesProvider = ({children}) => {
     const [movies, setmovies] = useState(null)
-    console.log(movies);
+    const [loading, setloading] = useState(true)
+
+   
+
     
     let moviesInfo={
         movies,
-        setmovies
+        setmovies,
+        loading,
+        setloading,
+        
     }
   return (
     <moviesContext.Provider value={moviesInfo}>

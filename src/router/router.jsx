@@ -7,14 +7,19 @@ import Addmovies from "../pages/Addmovies";
 import Allmovies from "../pages/Allmovies";
 import FavMovies from "../pages/FavMovies";
 
+
+
 let router=createBrowserRouter([
     {
         path:'/',
+        loader:()=>fetch('https://movies01-backend.vercel.app/movies'),
         element:<Root></Root>,
+       
         children:[
             {
                 path:"/",
-                element:<Home></Home>
+                element:<Home></Home>,
+                
             },
             {
                 path:'addmovies',
@@ -23,11 +28,10 @@ let router=createBrowserRouter([
             {
                 path:'allmovies',
                 element:<Allmovies></Allmovies>,
-                loader:()=>fetch('https://movies01-backend.vercel.app/movies')
                 
             },
             {
-                path:'favmovies',
+                path:'/favmovies',
                 element:<FavMovies></FavMovies>
             },
             {

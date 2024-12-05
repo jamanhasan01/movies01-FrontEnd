@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
-import { moviesContext } from "../provider/MoviesProvider";
-
 const AddMovies = () => {
-    let {setmovies}=useContext(moviesContext)
+
+  
   const handleMovieAdd = (e) => {
     e.preventDefault(); // Prevent form submission
     const form = new FormData(e.target); // Get form data
