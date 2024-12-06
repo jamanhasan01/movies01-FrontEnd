@@ -6,6 +6,7 @@ import SignUp from "../components/SignUp";
 import Addmovies from "../pages/Addmovies";
 import Allmovies from "../pages/Allmovies";
 import FavMovies from "../pages/FavMovies";
+import PrivetRoute from "./PrivetRoute";
 
 
 
@@ -23,7 +24,7 @@ let router=createBrowserRouter([
             },
             {
                 path:'addmovies',
-                element:<Addmovies></Addmovies>
+                element:<PrivetRoute><Addmovies></Addmovies></PrivetRoute>
             },
             {
                 path:'allmovies',

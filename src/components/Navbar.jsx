@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { authContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
+  let {user,handleSignOut}=useContext(authContext)
   let lists = (
     <>
       <li>
@@ -11,10 +14,11 @@ const Navbar = () => {
         <NavLink to={"/allmovies"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
   }>All Movies</NavLink>
       </li>
-      <li>
+      {user&& <li>
         <NavLink to={"/addmovies"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
   }>Add Movies</NavLink>
       </li>
+      }
       <li>
         <NavLink to={"/favmovies"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
   }>My Favorites </NavLink>
@@ -61,9 +65,13 @@ const Navbar = () => {
             {lists}
           </ul>
         </div>
-        <div className="">
+        {
+         user? 
+          <Link onClick={handleSignOut} className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90">Log Out</Link>
+          :<div >
           <Link to='/signin' className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90">SignIn</Link>
         </div>
+        }
       </div>
     </div>
   );
