@@ -24,7 +24,7 @@ const Movie = ({ movie }) => {
             <p>{genres[2]}</p>
           </div>
           <p className="flex gap-1 items-center"><FaStar/>{rating}</p>
-          <Link to=''><button className="btn bg-mainClr text-wrap hover:bg-slate-100 hover:text-black/80">See Details</button></Link>
+          <Link to={`/moviedetails/${_id}`}><button className="btn bg-mainClr text-wrap hover:bg-slate-100 hover:text-black/80">See Details</button></Link>
         </div>
       </div>
     </div>

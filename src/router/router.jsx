@@ -7,13 +7,14 @@ import Addmovies from "../pages/Addmovies";
 import Allmovies from "../pages/Allmovies";
 import FavMovies from "../pages/FavMovies";
 import PrivetRoute from "./PrivetRoute";
+import MovieDetails from "../components/MovieDetails";
 
 
 
 let router=createBrowserRouter([
     {
         path:'/',
-        loader:()=>fetch('https://movies01-backend.vercel.app/movies'),
+        loader:()=>fetch('http://localhost:5000/movies'),
         element:<Root></Root>,
        
         children:[
@@ -42,6 +43,11 @@ let router=createBrowserRouter([
             {
                 path:'/signup',
                 element:<SignUp></SignUp>
+            },
+            {
+                path:'/moviedetails/:id',
+                loader:({params})=> fetch(`http://localhost:5000/movies/${params.id}`),
+                element:<MovieDetails></MovieDetails>,
             }
         ]
     }
