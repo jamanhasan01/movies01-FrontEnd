@@ -67,6 +67,7 @@ let handleDeletedMovie=()=>{
     .then(data=>{
       if(data.acknowledged){
         toast.success('This card has been added to favorate list')
+        navigate('/favmovies')
       }
     } 
     )

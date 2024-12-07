@@ -12,11 +12,11 @@ const Allmovies = () => {
   }
   return (
     <div className='grid grid-cols-1 md:grid-cols-3 py-20 justify-items-center gap-5'>
-      <div>{movies.length}</div>
+   
         {
             seeMoreMovies.map((movie)=><Movie key={movie._id} movie={movie}></Movie>)
         }
-        <button className='btn text-center col-span-full bg-mainClr' onClick={handleSeeMore}>Show More</button>
+        {visibleData>6&&<button className='btn text-center col-span-full bg-mainClr' onClick={handleSeeMore}>Show More</button>}
     </div>
   )
 }

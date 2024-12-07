@@ -1,17 +1,17 @@
 import { FaStar } from "react-icons/fa";
 import { FaStopwatch } from "react-icons/fa";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { authContext } from "../provider/AuthProvider";
 import { useContext } from "react";
 import { toast } from "react-toastify";
-const Movie = ({ movie }) => {
-  let { user } = useContext(authContext);
-  let navigate = useNavigate();
-  let { _id, title, poster, genres, duration, releaseYear, rating, } =
-    movie;
 
-  let hour = Math.floor(duration / 60);
-  let sec = duration % 60;
+const Movie = ({ movie }) => {
+  const { user } = useContext(authContext);
+  const navigate = useNavigate();
+  const { _id, title, poster, genres, duration, releaseYear, rating, summary } = movie;
+
+  const hour = Math.floor(duration / 60);
+  const sec = duration % 60;
 
   const handleNavigation = () => {
     if (user) {
@@ -22,15 +22,23 @@ const Movie = ({ movie }) => {
     }
   };
 
+  // Truncate the summary if it exceeds 100 characters
+  const truncateSummary = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
-    <div className="w-full p-5 bg-black/30   rounded-2xl">
-      <div className="flex h-full   gap-4">
+    <div className="w-full p-5 bg-black/30 rounded-2xl">
+      <div className="flex h-full w-full gap-4">
         <img
-          className="max-w-[150px] h-full  rounded-2xl "
+          className="max-w-[150px] w-full h-full rounded-2xl"
           src={poster}
-          alt=""
+          alt={`${title} poster`}
         />
-        <div className="flex flex-col gap-2 justify-between">
+        <div className="flex flex-col w-full gap-2 justify-between">
           <p className="text-sm">{releaseYear}</p>
           <h3 className="text-2xl">{title}</h3>
           <h4 className="flex gap-1 items-center">
@@ -38,18 +46,20 @@ const Movie = ({ movie }) => {
             {`${hour} hour ${sec} min`}
           </h4>
           <div className="flex gap-2 text-sm">
-            <p>{genres ? genres[0] : "sry"}</p>
-            <p>{genres ? genres[0] : "sry"}</p>
-            <p>{genres ? genres[0] : "sry"}</p>
+            {genres?.slice(0, 3).map((genre, index) => (
+              <p key={index}>{genre}</p>
+            ))}
           </div>
+          <p className="text-sm break-words">
+            {truncateSummary(summary, 100)}
+          </p>
           <p className="flex gap-1 items-center">
             <FaStar />
             {rating}
           </p>
-
           <button
             onClick={handleNavigation}
-            className="btn bg-mainClr text-wrap hover:bg-slate-100 hover:text-black/80"
+            className="btn bg-mainClr hover:bg-slate-100 hover:text-black/80"
           >
             See Details
           </button>

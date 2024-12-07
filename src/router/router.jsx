@@ -8,6 +8,7 @@ import Allmovies from "../pages/Allmovies";
 import FavMovies from "../pages/FavMovies";
 import PrivetRoute from "./PrivetRoute";
 import MovieDetails from "../components/MovieDetails";
+import ErrorPage from "../components/ErrorPage";
 
 
 
@@ -16,7 +17,7 @@ let router=createBrowserRouter([
         path:'/',
         loader:()=>fetch('http://localhost:5000/movies'),
         element:<Root></Root>,
-       
+       errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:"/",
@@ -46,7 +47,7 @@ let router=createBrowserRouter([
             },
             {
                 path:'/moviedetails/:id',
-                loader:({params})=> fetch(`http://localhost:5000/movies/${params.email}`),
+                loader:({params})=> fetch(`http://localhost:5000/movies/${params.id}`),
                 element:<MovieDetails></MovieDetails>,
             }
         ]
