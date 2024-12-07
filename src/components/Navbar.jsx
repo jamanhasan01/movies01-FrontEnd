@@ -19,10 +19,10 @@ const Navbar = () => {
   }>Add Movies</NavLink>
       </li>
       }
-      <li>
+   {user&&<li>
         <NavLink to={"/favmovies"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
   }>My Favorites </NavLink>
-      </li>
+      </li>}
       <li>
         <NavLink to={"/fav"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
   }>Favorites </NavLink>

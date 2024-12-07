@@ -34,7 +34,7 @@ let router=createBrowserRouter([
             },
             {
                 path:'/favmovies',
-                element:<FavMovies></FavMovies>
+                element:<PrivetRoute><FavMovies></FavMovies></PrivetRoute>
             },
             {
                 path:'/signin',
@@ -46,7 +46,7 @@ let router=createBrowserRouter([
             },
             {
                 path:'/moviedetails/:id',
-                loader:({params})=> fetch(`http://localhost:5000/movies/${params.id}`),
+                loader:({params})=> fetch(`http://localhost:5000/movies/${params.email}`),
                 element:<MovieDetails></MovieDetails>,
             }
         ]

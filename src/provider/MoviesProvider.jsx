@@ -6,8 +6,7 @@ const MoviesProvider = ({children}) => {
     const [movies, setmovies] = useState(null)
     const [loading, setloading] = useState(true)
 
-   
-
+    
     
     let moviesInfo={
         movies,

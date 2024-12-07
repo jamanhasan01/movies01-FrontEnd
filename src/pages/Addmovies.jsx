@@ -1,5 +1,10 @@
+import { useContext, useEffect } from "react";
+import { toast } from "react-toastify";
+import { authContext } from "../provider/AuthProvider";
+
 const AddMovies = () => {
 
+  
   
   const handleMovieAdd = (e) => {
     e.preventDefault(); // Prevent form submission
@@ -38,8 +43,8 @@ const AddMovies = () => {
     .then(res=>res.json())
     .then((data)=>{
         if(data.acknowledged==true){
-            alert('done')
-            e.target.reset()
+            toast('Data has been added to database')
+            // e.target.reset()
         }
     }
     )
