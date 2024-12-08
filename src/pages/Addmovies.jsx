@@ -1,18 +1,17 @@
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
-import Loading from "../components/Loading";
+
 
 const AddMovies = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [rating, setRating] = useState(0); // For star rating
+  const [rating, setRating] = useState(0);
 
-  // Validation helpers
   const isValidURL = (url) => {
     const urlPattern = new RegExp(
-      "^(https?:\\/\\/)?" + // Protocol
-      "((([a-zA-Z0-9$-_@.&+!*\"(),]|(%[0-9a-fA-F]{2}))+(\\.[a-zA-Z]{2,4})?)+)*" +
-      "(:\\d{1,5})?(\\/.*)?$" // Port and path
+      "^(https?:\\/\\/)?" +
+        "((([a-zA-Z0-9$-_@.&+!*\"(),]|(%[0-9a-fA-F]{2}))+(\\.[a-zA-Z]{2,4})?)+)*" +
+        "(:\\d{1,5})?(\\/.*)?$"
     );
     return urlPattern.test(url);
   };
@@ -26,10 +25,9 @@ const AddMovies = () => {
     const title = form.get("title");
     const genre = form.get("genre");
     const duration = Number(form.get("duration"));
-    const releaseYear = form.get("releaseYear");
+    const releaseYear = Number(form.get("releaseYear"));
     const summary = form.get("summary");
 
-    // Validations
     if (!isValidURL(poster)) {
       toast.error("Please provide a valid URL for the poster.");
       setIsLoading(false);
@@ -45,8 +43,8 @@ const AddMovies = () => {
       setIsLoading(false);
       return;
     }
-    if (!releaseYear) {
-      toast.error("Please select a release year.");
+    if (!releaseYear || isNaN(releaseYear) || releaseYear < 1900 || releaseYear > new Date().getFullYear()) {
+      toast.error(`Please enter a valid release year between 1900 and ${new Date().getFullYear()}.`);
       setIsLoading(false);
       return;
     }
@@ -82,6 +80,8 @@ const AddMovies = () => {
       .then((data) => {
         if (data.acknowledged) {
           toast.success("Movie added successfully!");
+          e.target.reset();
+          setRating(0);
         } else {
           toast.error("Failed to add movie.");
         }
@@ -96,11 +96,7 @@ const AddMovies = () => {
         onSubmit={handleMovieAdd}
         className="max-w-2xl mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 rounded-xl border p-5 border-mainClr"
       >
-        <h1 className="text-4xl text-center mb-8 md:col-span-2">
-          Add a Movie
-        </h1>
-
-        {/* Poster URL */}
+        <h1 className="text-4xl text-center mb-8 md:col-span-2">Add a Movie</h1>
         <div className="mb-4">
           <label className="block mb-2">Movie Poster URL</label>
           <input
@@ -111,8 +107,6 @@ const AddMovies = () => {
             className="border p-2 w-full"
           />
         </div>
-
-        {/* Movie Title */}
         <div className="mb-4">
           <label className="block mb-2">Movie Title</label>
           <input
@@ -123,15 +117,9 @@ const AddMovies = () => {
             className="border p-2 w-full"
           />
         </div>
-
-        {/* Genre */}
         <div className="mb-4">
           <label className="block mb-2">Genre</label>
-          <select
-            name="genre"
-            required
-            className="border p-2 w-full"
-          >
+          <select name="genre" required className="border p-2 w-full">
             <option value="comedy">Comedy</option>
             <option value="drama">Drama</option>
             <option value="horror">Horror</option>
@@ -139,8 +127,6 @@ const AddMovies = () => {
             <option value="thriller">Thriller</option>
           </select>
         </div>
-
-        {/* Duration */}
         <div className="mb-4">
           <label className="block mb-2">Duration (in minutes)</label>
           <input
@@ -151,24 +137,18 @@ const AddMovies = () => {
             className="border p-2 w-full"
           />
         </div>
-
-        {/* Release Year */}
         <div className="mb-4">
           <label className="block mb-2">Release Year</label>
-          <select
+          <input
+            type="number"
             name="releaseYear"
+            placeholder="Enter the release year (e.g., 1999)"
             required
             className="border p-2 w-full"
-          >
-            <option value="">Select a year</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-          </select>
+            min="1900"
+            max={new Date().getFullYear()}
+          />
         </div>
-
-        {/* Rating */}
         <div className="mb-4">
           <label className="block mb-2">Rating</label>
           <Rating
@@ -179,8 +159,6 @@ const AddMovies = () => {
             emptyColor="gray"
           />
         </div>
-
-        {/* Summary */}
         <div className="md:col-span-2">
           <label className="block mb-2">Summary</label>
           <textarea
@@ -191,8 +169,6 @@ const AddMovies = () => {
             className="border p-2 w-full"
           ></textarea>
         </div>
-
-        {/* Submit Button */}
         <div className="md:col-span-2">
           <button
             type="submit"
@@ -203,7 +179,7 @@ const AddMovies = () => {
                 : "hover:bg-white hover:text-black/100"
             }`}
           >
-            {isLoading ? <Loading /> : "Add Movie"}
+            {isLoading ? "Loading..." : "Add Movie"}
           </button>
         </div>
       </form>

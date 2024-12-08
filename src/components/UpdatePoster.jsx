@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
 import Loading from "../components/Loading";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const UpdatePoster = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,6 +10,9 @@ const UpdatePoster = () => {
   const [genreValue, setGenreValue] = useState("");
   const [releaseYearValue, setReleaseYearValue] = useState("");
   
+
+  let navigate=useNavigate()
+
   let moviedata = useLoaderData();
   let { _id, title, poster, genre, releaseYear, summary, duration } = moviedata;
 
@@ -80,7 +83,9 @@ const UpdatePoster = () => {
       .then((data) => {
         setIsLoading(false);
         if (data.acknowledged) {
+            navigate('/')
           toast.success("Movie updated successfully!");
+          
         } else {
           toast.error("Failed to update movie.");
         }
@@ -204,7 +209,7 @@ const UpdatePoster = () => {
                 : "hover:bg-white hover:text-black/100"
             }`}
           >
-            {isLoading ? <Loading /> : "Update Movie"}
+            {isLoading ?"loading..." : "Update Movie"}
           </button>
         </div>
       </form>
