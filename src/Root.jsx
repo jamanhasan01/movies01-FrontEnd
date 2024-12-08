@@ -22,7 +22,7 @@ const Root = () => {
   return (
     <div className="font-poppins">
       <Navbar />
-      <div className="max-w-[1240px] mx-auto px-5 md:px-0 min-h-[350px]">
+      <div className="max-w-[1240px] mt-36 mx-auto px-5 md:px-0 min-h-[350px]">
         {navigation.state  === "loading" ? <Loading /> : <Outlet />}
       </div>
       <Footer />

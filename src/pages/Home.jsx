@@ -4,17 +4,18 @@ import Movie from "../components/Movie";
 import Slider from "../components/Slider";
 import Upcomming from "../components/Upcomming";
 import { Link } from "react-router-dom";
+import Catagory from "../components/Catagory";
 
 const Home = () => {
   let { movies } = useContext(moviesContext);
-  const [isSorted, setIsSorted] = useState(false); // State to track sorting
+  const [isSorted, setIsSorted] = useState(false); 
 
-  // Get the top 6 movies, sorted if `isSorted` is true
+  
   const featuredMovies = [...movies]
-    .sort((a, b) => (isSorted ? b.rating - a.rating : 0)) // Sort only when isSorted is true
+    .sort((a, b) => (isSorted ? b.rating - a.rating : 0)) 
     .slice(0, 6);
 
-  // Toggle sorting when the button is clicked
+
   const handleSort = () => {
     setIsSorted(!isSorted);
   };
@@ -52,6 +53,9 @@ const Home = () => {
       {/* Upcoming Movies Section */}
       <div className="my-20">
         <Upcomming></Upcomming>
+      </div>
+      <div>
+        <Catagory></Catagory>
       </div>
     </div>
   );

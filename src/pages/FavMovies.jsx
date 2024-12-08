@@ -20,7 +20,7 @@ const FavMovies = () => {
       {fvrtmovies.length == 0 ? (
         <Unavailable></Unavailable>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 py-20 justify-items-center gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 pb-20 justify-items-center gap-5">
           {fvrtmovies.map((movie) => (
             <FvrtMovie key={movie._id} movie={movie}></FvrtMovie>
           ))}

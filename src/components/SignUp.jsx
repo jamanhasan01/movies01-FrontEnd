@@ -2,22 +2,21 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../provider/AuthProvider";
 import { toast } from "react-toastify";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-
-
-"6HVf1WYdcLhmiF3ZSQ7xTTFciun1"
 const SignUp = () => {
   const { createUser, setuser } = useContext(authContext);
-  let navigate=useNavigate()
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSignUp = (e) => {
-    
     e.preventDefault();
     const form = new FormData(e.target);
     const username = form.get("username");
     const email = form.get("email");
     const password = form.get("password");
-    const photo=form.get('photo')
-    // Password validation
+    const photo = form.get('photo');
+
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (!passwordRegex.test(password)) {
@@ -27,17 +26,15 @@ const SignUp = () => {
       return;
     }
 
-
-
     createUser(email, password)
       .then((res) => {
         let userObj = res.user;
-        userObj.displayName=username
-        userObj.photoURL=photo
+        userObj.displayName = username;
+        userObj.photoURL = photo;
         setuser(userObj);
-        navigate('/signin')
+        navigate('/signin');
         toast.success("Registration Successful!");
-        e.target.reset(); 
+        e.target.reset();
       })
       .catch((error) => {
         toast.error(error.code || "Registration failed. Please try again.");
@@ -69,7 +66,6 @@ const SignUp = () => {
             placeholder="Photo Url"
             name="photo"
             className="input input-bordered"
-            
           />
         </div>
         <div className="form-control">
@@ -84,18 +80,27 @@ const SignUp = () => {
             required
           />
         </div>
-        <div className="form-control">
+        <div className="form-control relative">
           <label className="label">
             <span className="label-text">Password</span>
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             name="password"
             className="input input-bordered"
             required
           />
-         
+          <div
+            className="absolute right-3 top-[50%] transform -translate-y-[50%] cursor-pointer"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? (
+              <AiOutlineEyeInvisible size={20} />
+            ) : (
+              <AiOutlineEye size={20} />
+            )}
+          </div>
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Sign Up</button>

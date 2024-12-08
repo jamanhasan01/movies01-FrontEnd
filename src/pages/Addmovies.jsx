@@ -91,7 +91,7 @@ const AddMovies = () => {
   };
 
   return (
-    <div className="py-20">
+    <div className="pb-20">
       <form
         onSubmit={handleMovieAdd}
         className="max-w-2xl mx-auto grid gap-3 grid-cols-1 md:grid-cols-2 rounded-xl border p-5 border-mainClr"

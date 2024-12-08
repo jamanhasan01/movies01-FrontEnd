@@ -1,39 +1,96 @@
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { authContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
-  let {user,handleSignOut}=useContext(authContext)
-  let lists = (
+  const { user, handleSignOut } = useContext(authContext);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true); 
+      } else {
+        setIsScrolled(false); 
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const lists = (
     <>
       <li>
-        <NavLink to={"/"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
-  }>Home</NavLink>
+        <NavLink
+          to={"/"}
+          className={({ isActive }) =>
+            isActive ? "!bg-mainClr !text-white" : ""
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/allmovies"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
-  }>All Movies</NavLink>
+        <NavLink
+          to={"/allmovies"}
+          className={({ isActive }) =>
+            isActive ? "!bg-mainClr !text-white" : ""
+          }
+        >
+          All Movies
+        </NavLink>
       </li>
-      {user&& <li>
-        <NavLink to={"/addmovies"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
-  }>Add Movies</NavLink>
-      </li>
-      }
-   {user&&<li>
-        <NavLink to={"/favmovies"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
-  }>My Favorites </NavLink>
-      </li>}
+      {user && (
+        <li>
+          <NavLink
+            to={"/addmovies"}
+            className={({ isActive }) =>
+              isActive ? "!bg-mainClr !text-white" : ""
+            }
+          >
+            Add Movies
+          </NavLink>
+        </li>
+      )}
+      {user && (
+        <li>
+          <NavLink
+            to={"/favmovies"}
+            className={({ isActive }) =>
+              isActive ? "!bg-mainClr !text-white" : ""
+            }
+          >
+            My Favorites
+          </NavLink>
+        </li>
+      )}
       <li>
-        <NavLink to={"/fav"}  className={({ isActive }) => isActive ? "!bg-mainClr !text-white" : ""
-  }>Favorites </NavLink>
+        <NavLink
+          to={"/news"}
+          className={({ isActive }) =>
+            isActive ? "!bg-mainClr !text-white" : ""
+          }
+        >
+          News
+        </NavLink>
       </li>
-   
     </>
   );
+
   return (
-    <div className="">
-      <div className="flex max-w-[1240px] mx-auto justify-between py-3 items-center  px-5 md:px-0">
-        <div className="">
+    <div
+      className={`border-b border-gray-500 fixed left-0 top-0 w-full z-10 ${
+        isScrolled ?"bg-gray-600" : "bg-gray-800" 
+      } transition-all duration-300`}
+    >
+      <div className="flex max-w-[1240px] mx-auto justify-between py-3 items-center px-5 md:px-0">
+        <div>
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
@@ -55,27 +112,36 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
-            {lists}
+              {lists}
             </ul>
           </div>
-          <Link to={'/'} className="btn  btn-ghost text-xl">MOVIES01</Link>
+          <Link to={"/"} className="btn btn-ghost text-xl">
+            MOVIES01
+          </Link>
         </div>
         <div className="hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-3">
-            {lists}
-          </ul>
+          <ul className="menu menu-horizontal px-1 gap-3">{lists}</ul>
         </div>
-        {
-         user? 
-          <Link onClick={handleSignOut} className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90">Log Out</Link>
-          :<div >
-          <Link to='/signin' className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90">SignIn</Link>
-        </div>
-        }
+        {user ? (
+          <Link
+            onClick={handleSignOut}
+            className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
+          >
+            Log Out
+          </Link>
+        ) : (
+          <div>
+            <Link
+              to="/signin"
+              className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
+            >
+              SignIn
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default Navbar;
-

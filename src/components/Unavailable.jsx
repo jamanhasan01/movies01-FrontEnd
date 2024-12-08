@@ -1,6 +1,7 @@
 import { FaSadTear } from "react-icons/fa";
 
 const UnavailablePage = () => {
+    
   return (
     <div className="flex flex-col items-center justify-center min-h-[360px]">
       <h1 className="text-4xl font-bold mb-4 flex items-center gap-2">

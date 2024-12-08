@@ -28,7 +28,7 @@ const Allmovies = () => {
   };
 
   return (
-    <div className="py-20">
+    <div className="pb-20">
       {/* Search and Sort Controls */}
       <div className="flex justify-between items-center mb-5 px-5">
         <input

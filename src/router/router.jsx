@@ -9,6 +9,8 @@ import FavMovies from "../pages/FavMovies";
 import PrivetRoute from "./PrivetRoute";
 import MovieDetails from "../components/MovieDetails";
 import ErrorPage from "../components/ErrorPage";
+import Catagory from "../components/Catagory";
+import News from "../pages/News";
 
 
 
@@ -49,7 +51,11 @@ let router=createBrowserRouter([
                 path:'/moviedetails/:id',
                 loader:({params})=> fetch(`http://localhost:5000/movies/${params.id}`),
                 element:<MovieDetails></MovieDetails>,
-            }
+            },
+         {
+            path:'/news',
+            element:<News></News>
+         }
         ]
     }
 ])

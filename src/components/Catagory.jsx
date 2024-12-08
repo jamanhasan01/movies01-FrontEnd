@@ -1,0 +1,33 @@
+import {  useLoaderData } from "react-router-dom"
+import Movie from "./Movie";
+import { useEffect, useState } from "react";
+
+
+const Catagory = () => {
+    const [movies, setmovies] = useState([])
+    
+useEffect(() => {
+  fetch(`http://localhost:5000/category/action`)
+  .then(res=>res.json())
+  .then(data=>setmovies(data)
+  )
+  
+}, [])
+
+  
+    
+  return (
+    <div className="my-20">
+    <h1 className="text-4xl text-center font-bold mb-10">Action Movies</h1>
+
+     <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center gap-5">
+      {movies.slice(0,6).map((movie) => (
+        <Movie key={movie._id} movie={movie}></Movie>
+      ))}
+    </div> 
+  
+  </div>
+  )
+}
+
+export default Catagory

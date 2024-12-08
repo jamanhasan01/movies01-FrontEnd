@@ -1,24 +1,26 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form"; // Import React Hook Form
+import { useForm } from "react-hook-form";
 import { authContext } from "../provider/AuthProvider";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const { signInUser, setuser } = useContext(authContext);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
-  // Initialize useForm hook
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // Handle form submission
   const onSubmit = (data) => {
     const { email, password } = data;
     signInUser(email, password).then((res) => {
       setuser(res.user);
+      toast.success('Login Successfully')
       navigate("/");
     });
   };
@@ -27,8 +29,6 @@ const SignIn = () => {
     <div className="max-w-[500px] mx-auto my-20 border border-white/50 rounded-xl">
       <form onSubmit={handleSubmit(onSubmit)} className="card-body">
         <h1 className="text-2xl text-center">Login</h1>
-
-        {/* Email Field */}
         <div className="form-control">
           <label className="label">
             <span className="label-text">Email</span>
@@ -43,14 +43,12 @@ const SignIn = () => {
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
-
-        {/* Password Field */}
-        <div className="form-control">
+        <div className="form-control relative">
           <label className="label">
             <span className="label-text">Password</span>
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="password"
             className="input input-bordered"
             {...register("password", {
@@ -61,6 +59,16 @@ const SignIn = () => {
               },
             })}
           />
+          <div
+            className="absolute right-3 top-[50%] transform -translate-y-[50%] cursor-pointer"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? (
+              <AiOutlineEyeInvisible size={20} />
+            ) : (
+              <AiOutlineEye size={20} />
+            )}
+          </div>
           {errors.password && (
             <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
           )}
@@ -70,15 +78,11 @@ const SignIn = () => {
             </a>
           </label>
         </div>
-
-        {/* Submit Button */}
         <div className="form-control mt-6">
           <button type="submit" className="btn bg-mainClr text-white/80">
             Login
           </button>
         </div>
-
-        {/* Registration Link */}
         <p className="text-center">
           Don't have an account?{" "}
           <Link className="text-mainClr" to="/signup">
