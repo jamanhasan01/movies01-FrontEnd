@@ -11,6 +11,7 @@ import MovieDetails from "../components/MovieDetails";
 import ErrorPage from "../components/ErrorPage";
 import Catagory from "../components/Catagory";
 import News from "../pages/News";
+import UpdatePoster from "../components/UpdatePoster";
 
 
 
@@ -55,6 +56,11 @@ let router=createBrowserRouter([
          {
             path:'/news',
             element:<News></News>
+         },
+         {
+            path:'/updateposter/:id',
+            loader:({params})=>fetch(`http://localhost:5000/movies/${params.id}`),
+            element:<UpdatePoster></UpdatePoster>
          }
         ]
     }
