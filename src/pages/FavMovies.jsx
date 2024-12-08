@@ -1,4 +1,5 @@
 import FvrtMovie from "../components/fvrtmovie";
+import Unavailable from "../components/Unavailable";
 
 import { authContext } from "../provider/AuthProvider";
 import { useContext, useEffect, useState } from "react";
@@ -14,17 +15,21 @@ const FavMovies = () => {
       .then((data) => setfvrtmovies(data));
   }, [fvrtmovies]);
 
- 
-
-  
   return (
-    <div className='grid grid-cols-1 md:grid-cols-3 py-20 justify-items-center gap-5'>
-
-      {
-          fvrtmovies.map((movie)=><FvrtMovie key={movie._id} movie={movie}></FvrtMovie>)
-      }
-      <button className='btn text-center col-span-full bg-mainClr' >Show More</button>
-  </div>
+    <div className="">
+      {fvrtmovies.length == 0 ? (
+        <Unavailable></Unavailable>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 py-20 justify-items-center gap-5">
+          {fvrtmovies.map((movie) => (
+            <FvrtMovie key={movie._id} movie={movie}></FvrtMovie>
+          ))}
+          <button className="btn text-center col-span-full bg-mainClr">
+            Show More
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
