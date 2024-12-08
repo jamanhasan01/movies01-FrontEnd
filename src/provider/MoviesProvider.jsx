@@ -1,36 +1,25 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react"
 
-export const moviesContext = createContext();
+export let moviesContext=createContext()
 
-const MoviesProvider = ({ children }) => {
-  const [movies, setmovies] = useState(null);
-  const [loading, setloading] = useState(true);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+const MoviesProvider = ({children}) => {
+    const [movies, setmovies] = useState(null)
+    const [loading, setloading] = useState(true)
 
-  // Update the document's theme attribute whenever the theme changes
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
-
-  const moviesInfo = {
-    movies,
-    setmovies,
-    loading,
-    setloading,
-    theme,
-    toggleTheme,
-  };
-
+    
+    
+    let moviesInfo={
+        movies,
+        setmovies,
+        loading,
+        setloading,
+        
+    }
   return (
     <moviesContext.Provider value={moviesInfo}>
-      {children}
+        {children}
     </moviesContext.Provider>
-  );
-};
+  )
+}
 
-export default MoviesProvider;
+export default MoviesProvider
