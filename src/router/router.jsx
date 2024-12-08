@@ -9,7 +9,7 @@ import FavMovies from "../pages/FavMovies";
 import PrivetRoute from "./PrivetRoute";
 import MovieDetails from "../components/MovieDetails";
 import ErrorPage from "../components/ErrorPage";
-import Catagory from "../components/Catagory";
+
 import News from "../pages/News";
 import UpdatePoster from "../components/UpdatePoster";
 
@@ -18,7 +18,7 @@ import UpdatePoster from "../components/UpdatePoster";
 let router=createBrowserRouter([
     {
         path:'/',
-        loader:()=>fetch('http://localhost:5000/movies'),
+        loader:()=>fetch('https://movies01-backend.vercel.app/movies'),
         element:<Root></Root>,
        errorElement:<ErrorPage></ErrorPage>,
         children:[
@@ -50,7 +50,7 @@ let router=createBrowserRouter([
             },
             {
                 path:'/moviedetails/:id',
-                loader:({params})=> fetch(`http://localhost:5000/movies/${params.id}`),
+                loader:({params})=> fetch(`https://movies01-backend.vercel.app/movies/${params.id}`),
                 element:<MovieDetails></MovieDetails>,
             },
          {
@@ -59,7 +59,7 @@ let router=createBrowserRouter([
          },
          {
             path:'/updateposter/:id',
-            loader:({params})=>fetch(`http://localhost:5000/movies/${params.id}`),
+            loader:({params})=>fetch(`https://movies01-backend.vercel.app/movies/${params.id}`),
             element:<UpdatePoster></UpdatePoster>
          }
         ]

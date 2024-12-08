@@ -27,7 +27,7 @@ const MovieDetails = () => {
     summary,
     email,
   };
-
+  console.log(movieObj);
 
   let hour = Math.floor(duration / 60);
   let sec = duration % 60;
@@ -43,7 +43,7 @@ const MovieDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/movies/${_id}`, {
+        fetch(`https://movies01-backend.vercel.app/movies/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -62,7 +62,7 @@ const MovieDetails = () => {
   };
 
   let handleFvrtList = () => {
-    fetch(`http://localhost:5000/fvrtmovies`, {
+    fetch(`https://movies01-backend.vercel.app/fvrtmovies`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -10,7 +10,7 @@ const FavMovies = () => {
   let email = user?.email;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/fvrtmovies/${email}`)
+    fetch(`https://movies01-backend.vercel.app/fvrtmovies/${email}`)
       .then((res) => res.json())
       .then((data) => setfvrtmovies(data));
   }, [fvrtmovies]);

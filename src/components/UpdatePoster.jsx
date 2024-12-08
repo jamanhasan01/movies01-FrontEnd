@@ -53,11 +53,11 @@ const UpdatePoster = () => {
       setIsLoading(false);
       return;
     }
-    if (!releaseYear) {
-      toast.error("Please select a release year.");
-      setIsLoading(false);
-      return;
-    }
+    if (!releaseYear || isNaN(releaseYear) || releaseYear < 1900 || releaseYear > new Date().getFullYear()) {
+        toast.error(`Please enter a valid release year between 1900 and ${new Date().getFullYear()}.`);
+        setIsLoading(false);
+        return;
+      }
     if (rating === 0) {
       toast.error("Please provide a rating.");
       setIsLoading(false);
@@ -71,9 +71,9 @@ const UpdatePoster = () => {
 
     // Update data API
     let formDataObj = { poster, title, genre, duration, releaseYear, summary, rating }
-  
-    fetch(`http://localhost:5000/movies/${_id}`, {
-      method: "PATCH",
+    // https://movies01-backend.vercel.app/
+    fetch(`https://movies01-backend.vercel.app/movies/${_id}`, {
+      method:"PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -161,19 +161,15 @@ const UpdatePoster = () => {
 
         <div className="mb-4">
           <label className="block mb-2">Release Year</label>
-          <select
+          <input
+            type="number"
             name="releaseYear"
+            placeholder="Enter the release year (e.g., 1999)"
             required
             className="border p-2 w-full"
-            value={releaseYearValue || releaseYear}
-            onChange={(e) => setReleaseYearValue(e.target.value)}
-          >
-            <option value="">Select a year</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-          </select>
+            min="1900"
+            max={new Date().getFullYear()}
+          />
         </div>
 
         <div className="mb-4">

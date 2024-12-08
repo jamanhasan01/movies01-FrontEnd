@@ -7,7 +7,7 @@ const Catagory = () => {
     const [movies, setmovies] = useState([])
     
 useEffect(() => {
-  fetch(`http://localhost:5000/category/action`)
+  fetch(`https://movies01-backend.vercel.app/category/action`)
   .then(res=>res.json())
   .then(data=>setmovies(data)
   )

@@ -25,7 +25,7 @@ const FvrtMovie = ({ movie }) => {
       if (result.isConfirmed) {
       
   
-    fetch(`http://localhost:5000/fvrtmovies/${email}/${_id}`,{
+    fetch(`https://movies01-backend.vercel.app/movies/${email}/${_id}`,{
       method:"DELETE"
     }).then((res)=>res.json())
     .then(data=>{
