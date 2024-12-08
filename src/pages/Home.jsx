@@ -17,7 +17,7 @@ const Home = () => {
       <div className="my-20">
         <Slider></Slider>
       </div>
-     <div className="my-20 ">
+     <div className="my-20">
       <h1 className="text-4xl text-center font-bold mb-10">Featured Movies</h1>
      <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center gap-5">
         {moreMovies.map((movie) => (

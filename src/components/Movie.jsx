@@ -26,8 +26,8 @@ const Movie = ({ movie }) => {
 
 
   return (
-    <div className="w-full p-5 bg-black/30 rounded-2xl">
-      <div className="flex h-full w-full gap-4">
+    <div className="w-full p-5 rounded-2xl">
+      <div className="flex h-full border border-gray-700 rounded-2xl p-5 w-full  gap-4">
         <img
           className="max-w-[150px] w-full h-full rounded-2xl"
           src={poster}
