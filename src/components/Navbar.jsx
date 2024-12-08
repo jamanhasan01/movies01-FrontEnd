@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { authContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
   const { user, handleSignOut } = useContext(authContext);
   const [isScrolled, setIsScrolled] = useState(false);
-
+  let location =useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -131,12 +131,19 @@ const Navbar = () => {
           </Link>
         ) : (
           <div>
+            {location.pathname!=="/signin"?
             <Link
               to="/signin"
               className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
             >
               SignIn
-            </Link>
+            </Link>:
+            <Link
+              to="/signup"
+              className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
+            >
+              Register
+            </Link>}
           </div>
         )}
       </div>

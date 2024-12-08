@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import upcomming1 from "../assets/upcomming1.jpg";
 const Upcomming = () => {
   let location=useLocation()
-  console.log(location);
+
   
   return (
     <div>

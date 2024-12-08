@@ -3,13 +3,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../provider/AuthProvider";
 import { toast } from "react-toastify";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FaGoogle } from "react-icons/fa";
 
 const SignUp = () => {
-  const { createUser, setuser } = useContext(authContext);
+  const { createUser, setuser ,logInWithGoogle } = useContext(authContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  let handleGoogleLogin=()=>{
+    logInWithGoogle()
+    .then(res=>{
+      
+  
+      setuser(res.user)
+      toast.success('login successfully')
+      navigate('/')
+      
+  })
+  .catch(error=>toast.warn(error.message))
+  }
   const handleSignUp = (e) => {
+    
     e.preventDefault();
     const form = new FormData(e.target);
     const username = form.get("username");
@@ -103,7 +116,9 @@ const SignUp = () => {
           </div>
         </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Sign Up</button>
+          <button className="btn bg-mainClr">Sign Up</button>
+      <button onClick={handleGoogleLogin} className="btn bg-mainClr mt-1"><FaGoogle></FaGoogle>Login With Google</button>
+         
         </div>
         <p className="text-center">
           Already have an account?{" "}

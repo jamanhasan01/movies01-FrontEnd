@@ -9,7 +9,7 @@ const Movie = ({ movie }) => {
   const { user } = useContext(authContext);
   const navigate = useNavigate();
   const { _id, title, poster, genre, duration, releaseYear, rating, summary } = movie;
-  console.log(movie);
+
   
   const hour = Math.floor(duration / 60);
   const sec = duration % 60;

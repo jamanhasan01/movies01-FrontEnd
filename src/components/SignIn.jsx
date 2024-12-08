@@ -4,11 +4,24 @@ import { useForm } from "react-hook-form";
 import { authContext } from "../provider/AuthProvider";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { FaGoogle } from "react-icons/fa";
 
 const SignIn = () => {
-  const { signInUser, setuser } = useContext(authContext);
+  const { signInUser, setuser,logInWithGoogle } = useContext(authContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  
+  let handleGoogleLogin=()=>{
+    logInWithGoogle()
+    .then(res=>{
+      setuser(res.user)
+      toast.success('login successfully')
+      navigate('/')
+      
+  })
+  .catch(error=>toast.warn(error.message))
+  }
 
   const {
     register,
@@ -79,9 +92,11 @@ const SignIn = () => {
           </label>
         </div>
         <div className="form-control mt-6">
-          <button type="submit" className="btn bg-mainClr text-white/80">
+          <button  className="btn bg-mainClr text-white/80">
             Login
           </button>
+          <button onClick={handleGoogleLogin} className="btn bg-mainClr mt-1"><FaGoogle></FaGoogle>Login With Google</button>
+
         </div>
         <p className="text-center">
           Don't have an account?{" "}
@@ -90,8 +105,9 @@ const SignIn = () => {
           </Link>
         </p>
       </form>
+      
     </div>
   );
 };
 
-export default SignIn;
+export default SignIn 
