@@ -9,15 +9,15 @@ import Swal from "sweetalert2";
 const MovieDetails = () => {
   let {user}=useContext(authContext)
   let navigate=useNavigate()
-  console.log(user);
-  let email=user.email
+
+  let email=user?.email
   
  let movie= useLoaderData()
 
-  let { _id,  title, poster, genres, duration, releaseYear, rating, summary } =
+  let { _id,  title, poster, genre, duration, releaseYear, rating, summary } =
   movie;
 
-  let movieObj={ title, poster, genres, duration, releaseYear, rating, summary,email}
+  let movieObj={ title, poster, genre, duration, releaseYear, rating, summary,email}
 console.log(movieObj);
 
 let hour = Math.floor(duration / 60);
@@ -83,10 +83,7 @@ let handleDeletedMovie=()=>{
           <h3 className="text-2xl">{title}</h3>
           <h4 className="flex gap-1 items-center"><FaStopwatch/>{`${hour} hour ${sec} min`}</h4>
           <div className="flex gap-2 text-sm">
-            {/* <p>{genres?genres[0]:"sry"}</p>
-            <p>{genres?genres[1]:"sry"}</p>
-            <p>{genres?genres[2]:"sry"}</p>
-           */}
+           {genre}
           </div>
           <p className="text-sm"> 
             {summary}

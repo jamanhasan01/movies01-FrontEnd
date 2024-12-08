@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const FvrtMovie = ({ movie }) => {
-  let { _id, title, poster, genres, duration, releaseYear, rating, email } =
+  let { _id, title, poster, genre, duration, releaseYear, rating, email } =
   movie;
 
   let navigate=useNavigate()
@@ -59,9 +59,7 @@ const FvrtMovie = ({ movie }) => {
             {`${hour} hour ${sec} min`}
           </h4>
           <div className="flex gap-2 text-sm">
-            <p>{genres && genres[0]}</p>
-            <p>{genres && genres[0]}</p>
-            <p>{genres && genres[0]}</p>
+           {genre}
           </div>
           <p className="flex gap-1 items-center">
             <FaStar />

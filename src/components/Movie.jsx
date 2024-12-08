@@ -8,8 +8,9 @@ import { toast } from "react-toastify";
 const Movie = ({ movie }) => {
   const { user } = useContext(authContext);
   const navigate = useNavigate();
-  const { _id, title, poster, genres, duration, releaseYear, rating, summary } = movie;
-
+  const { _id, title, poster, genre, duration, releaseYear, rating, summary } = movie;
+  console.log(movie);
+  
   const hour = Math.floor(duration / 60);
   const sec = duration % 60;
 
@@ -22,13 +23,7 @@ const Movie = ({ movie }) => {
     }
   };
 
-  // Truncate the summary if it exceeds 100 characters
-  const truncateSummary = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.slice(0, maxLength) + "...";
-    }
-    return text;
-  };
+
 
   return (
     <div className="w-full p-5 bg-black/30 rounded-2xl">
@@ -46,13 +41,8 @@ const Movie = ({ movie }) => {
             {`${hour} hour ${sec} min`}
           </h4>
           <div className="flex gap-2 text-sm">
-            {genres?.slice(0, 3).map((genre, index) => (
-              <p key={index}>{genre}</p>
-            ))}
+            {genre}
           </div>
-          <p className="text-sm break-words">
-            {truncateSummary(summary, 100)}
-          </p>
           <p className="flex gap-1 items-center">
             <FaStar />
             {rating}
