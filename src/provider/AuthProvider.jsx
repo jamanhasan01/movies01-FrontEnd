@@ -16,6 +16,8 @@ const AuthProvider = ({ children }) => {
   const [user, setuser] = useState(null);
 
 
+
+
   let createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };

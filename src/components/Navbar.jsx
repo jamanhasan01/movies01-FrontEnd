@@ -5,19 +5,18 @@ import { authContext } from "../provider/AuthProvider";
 const Navbar = () => {
   const { user, handleSignOut } = useContext(authContext);
   const [isScrolled, setIsScrolled] = useState(false);
-  let location =useLocation()
+  let location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setIsScrolled(true); 
+        setIsScrolled(true);
       } else {
-        setIsScrolled(false); 
+        setIsScrolled(false);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -86,7 +85,7 @@ const Navbar = () => {
   return (
     <div
       className={`border-b border-gray-500 fixed left-0 top-0 w-full z-10 ${
-        isScrolled ?"bg-gray-600" : "bg-gray-800" 
+        isScrolled ? "bg-gray-600" : "bg-gray-800"
       } transition-all duration-300`}
     >
       <div className="flex max-w-[1240px] mx-auto justify-between py-3 items-center px-5 md:px-0">
@@ -122,28 +121,40 @@ const Navbar = () => {
         <div className="hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-3">{lists}</ul>
         </div>
+        <div></div>
         {user ? (
-          <Link
-            onClick={handleSignOut}
-            className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
-          >
-            Log Out
-          </Link>
+          <div className="flex justify-center items-center gap-3">
+            <div className="avatar">
+              <div title={`${user?.displayName}`} className={`ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2`}>
+                <img src={user?.photoURL} />
+              </div>
+            </div>
+            <Link
+              onClick={handleSignOut}
+              className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
+            >
+              Log Out
+            </Link>
+
+            
+          </div>
         ) : (
           <div>
-            {location.pathname!=="/signin"?
-            <Link
-              to="/signin"
-              className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
-            >
-              SignIn
-            </Link>:
-            <Link
-              to="/signup"
-              className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
-            >
-              Register
-            </Link>}
+            {location.pathname !== "/signin" ? (
+              <Link
+                to="/signin"
+                className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
+              >
+                SignIn
+              </Link>
+            ) : (
+              <Link
+                to="/signup"
+                className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"
+              >
+                Register
+              </Link>
+            )}
           </div>
         )}
       </div>
