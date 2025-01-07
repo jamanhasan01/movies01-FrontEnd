@@ -109,7 +109,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className=" menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               {lists}
             </ul>
@@ -121,7 +121,7 @@ const Navbar = () => {
         <div className="hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-3">{lists}</ul>
         </div>
-        <div></div>
+        
         {user ? (
           <div className="flex justify-center items-center gap-3">
             <div className="avatar">

@@ -11,6 +11,7 @@ const Home = () => {
   const [isSorted, setIsSorted] = useState(false); 
 
   
+  
   const featuredMovies = [...movies]
     .sort((a, b) => (isSorted ? b.rating - a.rating : 0)) 
     .slice(0, 6);

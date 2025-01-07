@@ -1,11 +1,13 @@
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
+import { useNavigate } from "react-router-dom";
 
 
 const AddMovies = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [rating, setRating] = useState(0);
+  let navigate=useNavigate()
 
   const isValidURL = (url) => {
     const urlPattern = new RegExp(
@@ -38,11 +40,7 @@ const AddMovies = () => {
       setIsLoading(false);
       return;
     }
-    if (duration <= 60) {
-      toast.error("Duration must be greater than 60 minutes.");
-      setIsLoading(false);
-      return;
-    }
+  
     if (!releaseYear || isNaN(releaseYear) || releaseYear < 1900 || releaseYear > new Date().getFullYear()) {
       toast.error(`Please enter a valid release year between 1900 and ${new Date().getFullYear()}.`);
       setIsLoading(false);
@@ -69,7 +67,7 @@ const AddMovies = () => {
       summary,
     };
 
-    fetch("http://localhost:5000/movies", {
+    fetch("https://movies01-backend.vercel.app/movies", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -81,6 +79,7 @@ const AddMovies = () => {
         if (data.acknowledged) {
           toast.success("Movie added successfully!");
           e.target.reset();
+          navigate('/allmovies')
           setRating(0);
         } else {
           toast.error("Failed to add movie.");

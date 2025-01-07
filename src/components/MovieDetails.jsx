@@ -27,7 +27,7 @@ const MovieDetails = () => {
     summary,
     email,
   };
-  console.log(movieObj);
+
 
   let hour = Math.floor(duration / 60);
   let sec = duration % 60;
