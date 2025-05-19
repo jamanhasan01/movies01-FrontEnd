@@ -50,7 +50,7 @@ const Allmovies = () => {
       </div>
 
       {/* Movies Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 justify-items-center gap-5">
         {seeMoreMovies.map((movie) => (
           <Movie key={movie._id} movie={movie} />
         ))}
