@@ -46,7 +46,8 @@ const FvrtMovie = ({ movie }) => {
 
   return (
     <>
-      {/* Mobile View (Card) */}
+   <div>
+       {/* Mobile View (Card) */}
       <div className="lg:hidden mb-4 bg-gray-800 rounded-lg overflow-hidden shadow-md">
         <div className="flex p-4">
           <div className="flex-shrink-0 mr-4">
@@ -85,9 +86,8 @@ const FvrtMovie = ({ movie }) => {
       </div>
 
       {/* Desktop View (Table Row) */}
-    <table>
-        <tr className="hidden lg:table-row border-b  bg-gray-800 border-gray-700 hover:bg-gray-700 transition-colors">
-        <td className="px-4 py-3">
+      <tr className="hidden lg:table-row border-b border-gray-700 bg-gray-800 hover:bg-gray-700 transition-colors">
+        <td className="px-4 py-3 align-middle">
           <img
             src={poster}
             alt={title}
@@ -98,27 +98,31 @@ const FvrtMovie = ({ movie }) => {
             }}
           />
         </td>
-        <td className="px-4 py-3 font-medium text-white text-center">{title}</td>
-        <td className="px-4 py-3 text-gray-300 text-center">{releaseYear || 'N/A'}</td>
-        <td className="px-4 py-3 text-gray-300 flex items-center justify-center gap-1">
-          <FaStopwatch className="text-blue-400" />
-          {hour > 0 || min > 0 ? `${hour}h ${min}m` : 'N/A'}
+        <td className="px-4 py-3 font-medium text-white align-middle text-center">{title}</td>
+        <td className="px-4 py-3 text-gray-300 align-middle text-center">{releaseYear || 'N/A'}</td>
+        <td className="px-4 py-3 text-gray-300 align-middle">
+          <div className="flex items-center justify-center gap-1">
+            <FaStopwatch className="text-blue-400" />
+            {hour > 0 || min > 0 ? `${hour}h ${min}m` : 'N/A'}
+          </div>
         </td>
-        <td className="px-4 py-3 text-gray-300 text-center">{genreDisplay || 'N/A'}</td>
-        <td className="px-4 py-3 text-gray-300 flex items-center justify-center gap-1">
-          <FaStar className="text-yellow-400" />
-          {rating || 'N/A'}
+        <td className="px-4 py-3 text-gray-300 align-middle text-center">{genreDisplay || 'N/A'}</td>
+        <td className="px-4 py-3 text-gray-300 align-middle">
+          <div className="flex items-center justify-center gap-1">
+            <FaStar className="text-yellow-400" />
+            {rating || 'N/A'}
+          </div>
         </td>
-        <td className="px-4 py-3 text-center">
+        <td className="px-4 py-3 align-middle">
           <button
             onClick={handleDelete}
-            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors flex items-center gap-1 mx-auto"
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors flex items-center justify-center gap-1 mx-auto"
           >
             <FaTrash /> Delete
           </button>
         </td>
       </tr>
-    </table>
+   </div>
     </>
   );
 };

@@ -14,7 +14,7 @@ const FavMovies = () => {
       .then((res) => res.json())
       .then((data) => setfvrtmovies(data));
   }, []);
-if (!fvrtmovies) {
+if (!fvrtmovies.length) {
   return  <Unavailable></Unavailable>
 }
   return (

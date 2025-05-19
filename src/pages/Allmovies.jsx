@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { moviesContext } from '../provider/MoviesProvider';
 
 const Allmovies = () => {
-  const [visibleData, setvisibleData] = useState(6);
+  const [visibleData, setvisibleData] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState(''); // 'asc' for ascending, 'desc' for descending
   const { movies } = useContext(moviesContext);
