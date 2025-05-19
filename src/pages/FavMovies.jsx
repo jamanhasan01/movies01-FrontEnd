@@ -13,13 +13,12 @@ const FavMovies = () => {
     fetch(`https://movies01-backend.vercel.app/fvrtmovies/${email}`)
       .then((res) => res.json())
       .then((data) => setfvrtmovies(data));
-  }, [fvrtmovies]);
-
+  }, []);
+if (!fvrtmovies) {
+  return  <Unavailable></Unavailable>
+}
   return (
-    <div className="">
-      {fvrtmovies.length == 0 ? (
-        <Unavailable></Unavailable>
-      ) : (
+
         <div className=" space-y-2 pb-20 justify-items-center gap-5 ">
           {fvrtmovies.slice(0,10).map((movie) => (
             <FvrtMovie key={movie._id} movie={movie}></FvrtMovie>
@@ -30,8 +29,7 @@ const FavMovies = () => {
           </button>
         }
         </div>
-      )}
-    </div>
+     
   );
 };
 

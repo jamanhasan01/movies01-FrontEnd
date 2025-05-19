@@ -24,11 +24,13 @@ const FvrtMovie = ({ movie }) => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://movies01-backend.vercel.app/movies/${email}/${_id}`, {
+        fetch(`https://movies01-backend.vercel.app/fvrtmovies/${email}/${_id}`, {
           method: 'DELETE',
         })
           .then((res) => res.json())
           .then((data) => {
+            console.log(data);
+            
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: 'Deleted!',
