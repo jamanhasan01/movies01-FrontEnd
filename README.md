@@ -52,3 +52,6 @@ cd movies01-FrontEnd
 ```bash
 git clone https://github.com/jamanhasan01/movies01-BackEnd.git
 cd getEarn-frontEnd
+
+## live link 
+live_link https://movies01.surge.sh/
