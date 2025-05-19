@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom'
+
 import Movie from './Movie'
 import { useEffect, useState } from 'react'
 
