@@ -4,7 +4,8 @@ import Movie from "../components/Movie";
 import Slider from "../components/Slider";
 import Upcomming from "../components/Upcomming";
 import { Link } from "react-router-dom";
-import Catagory from "../components/Catagory";
+import CatagoryOfAction from "../components/CatagoryOfAction";
+import CatagoryOfComedy from "../components/CatagoryOfComedy";
 
 const Home = () => {
   let { movies } = useContext(moviesContext);
@@ -30,7 +31,7 @@ const Home = () => {
 
       {/* Featured Movies Section */}
       <div className="my-20">
-        <h1 className="text-4xl text-center font-bold mb-10">Featured Movies</h1>
+        <h1 className="text-2xl text-start font-bold mb-10">Featured Movies</h1>
         <div className="text-right mb-5">
           <button
             className="btn bg-mainClr text-white"
@@ -56,8 +57,9 @@ const Home = () => {
         <Upcomming></Upcomming>
       </div>
       <div>
-        <Catagory></Catagory>
+        <CatagoryOfAction></CatagoryOfAction>
       </div>
+      <div><CatagoryOfComedy></CatagoryOfComedy></div>
     </div>
   );
 };

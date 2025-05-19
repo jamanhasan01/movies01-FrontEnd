@@ -7,6 +7,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   let location = useLocation();
 
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -124,11 +125,13 @@ const Navbar = () => {
         
         {user ? (
           <div className="flex justify-center items-center gap-3">
+             <Link to={'/profile'}>
             <div className="avatar">
+             
               <div title={`${user?.displayName}`} className={`ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2`}>
                 <img src={user?.photoURL} />
-              </div>
             </div>
+              </div></Link>
             <Link
               onClick={handleSignOut}
               className="bg-mainClr px-3 py-2 rounded-lg text-white hover:bg-white hover:text-black/90"

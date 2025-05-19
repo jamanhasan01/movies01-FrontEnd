@@ -12,6 +12,7 @@ import ErrorPage from "../components/ErrorPage";
 
 import News from "../pages/News";
 import UpdatePoster from "../components/UpdatePoster";
+import Profile from "../pages/Profile";
 
 
 
@@ -61,6 +62,10 @@ let router=createBrowserRouter([
             path:'/updateposter/:id',
             loader:({params})=>fetch(`https://movies01-backend.vercel.app/movies/${params.id}`),
             element:<UpdatePoster></UpdatePoster>
+         },
+         {
+            path:'/profile',
+            element:<Profile></Profile>
          }
         ]
     }
