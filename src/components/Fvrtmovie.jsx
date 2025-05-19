@@ -1,80 +1,123 @@
-import { FaStar } from "react-icons/fa";
-import { FaStopwatch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { FaStar, FaStopwatch, FaTrash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const FvrtMovie = ({ movie }) => {
-  let { _id, title, poster, genre, duration, releaseYear, rating, email } =
-  movie;
+  const { _id, title, poster, genre, duration, releaseYear, rating, email } = movie;
+  const navigate = useNavigate();
 
-  let navigate=useNavigate()
-  
-  let hour = Math.floor(duration / 60);
-  let sec = duration % 60;
-  let handleDelete = () => {
-    
+  // Handle if genre is array or string
+  const genreDisplay = Array.isArray(genre) ? genre.join(', ') : genre;
+
+  // Duration fallback if missing or zero
+  const hour = duration ? Math.floor(duration / 60) : 0;
+  const min = duration ? duration % 60 : 0;
+
+  const handleDelete = () => {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-      
-  
-    fetch(`https://movies01-backend.vercel.app/movies/${email}/${_id}`,{
-      method:"DELETE"
-    }).then((res)=>res.json())
-    .then(data=>{
-      if (data.deletedCount>0) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
-        });
-        navigate('/favmovies')
+        fetch(`https://movies01-backend.vercel.app/movies/${email}/${_id}`, {
+          method: 'DELETE',
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Your movie has been deleted.',
+                icon: 'success',
+              });
+              navigate('/favmovies');
+            }
+          });
       }
-    }
-    )
-  }
-  });
+    });
   };
 
   return (
-    <div className="w-full p-5 bg-black/30   rounded-2xl">
-      <div className="flex h-full   gap-4">
-        <img
-          className="max-w-[150px] h-full  rounded-2xl "
-          src={poster}
-          alt=""
-        />
-        <div className="flex flex-col gap-2 justify-between">
-          <p className="text-sm">{releaseYear}</p>
-          <h3 className="text-2xl">{title}</h3>
-          <h4 className="flex gap-1 items-center">
-            <FaStopwatch />
-            {`${hour} hour ${sec} min`}
-          </h4>
-          <div className="flex gap-2 text-sm">
-           {genre}
+    <>
+      {/* Mobile View (Card) */}
+      <div className="lg:hidden mb-4 bg-gray-800 rounded-lg overflow-hidden shadow-md">
+        <div className="flex p-4">
+          <div className="flex-shrink-0 mr-4">
+            <img
+              src={poster}
+              alt={title}
+              className="w-20 h-28 object-cover rounded-md"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://via.placeholder.com/80x112?text=No+Poster';
+              }}
+            />
           </div>
-          <p className="flex gap-1 items-center">
-            <FaStar />
-            {rating}
-          </p>
-
-          <button
-            onClick={handleDelete}
-            className="btn bg-mainClr text-wrap hover:bg-slate-100 hover:text-black/80"
-          >
-            Delete Favorite
-          </button>
+          <div className="flex-grow">
+            <h3 className="text-lg font-semibold text-white">{title}</h3>
+            <div className="mt-2 grid grid-cols-2 gap-2 text-sm text-gray-300">
+              <div className="flex items-center">
+                <FaStar className="text-yellow-400 mr-1" />
+                <span>{rating || 'N/A'}</span>
+              </div>
+              <div className="flex items-center">
+                <FaStopwatch className="text-blue-400 mr-1" />
+                <span>{hour > 0 || min > 0 ? `${hour}h ${min}m` : 'N/A'}</span>
+              </div>
+              <div>Year: {releaseYear || 'N/A'}</div>
+              <div>Genre: {genreDisplay || 'N/A'}</div>
+            </div>
+            <button
+              onClick={handleDelete}
+              className="mt-3 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm transition-colors"
+            >
+              <FaTrash className="mr-1" /> Delete
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Desktop View (Table Row) */}
+    <table>
+        <tr className="hidden lg:table-row border-b  bg-gray-800 border-gray-700 hover:bg-gray-700 transition-colors">
+        <td className="px-4 py-3">
+          <img
+            src={poster}
+            alt={title}
+            className="w-16 h-24 object-cover rounded-md mx-auto"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://via.placeholder.com/64x96?text=No+Poster';
+            }}
+          />
+        </td>
+        <td className="px-4 py-3 font-medium text-white text-center">{title}</td>
+        <td className="px-4 py-3 text-gray-300 text-center">{releaseYear || 'N/A'}</td>
+        <td className="px-4 py-3 text-gray-300 flex items-center justify-center gap-1">
+          <FaStopwatch className="text-blue-400" />
+          {hour > 0 || min > 0 ? `${hour}h ${min}m` : 'N/A'}
+        </td>
+        <td className="px-4 py-3 text-gray-300 text-center">{genreDisplay || 'N/A'}</td>
+        <td className="px-4 py-3 text-gray-300 flex items-center justify-center gap-1">
+          <FaStar className="text-yellow-400" />
+          {rating || 'N/A'}
+        </td>
+        <td className="px-4 py-3 text-center">
+          <button
+            onClick={handleDelete}
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors flex items-center gap-1 mx-auto"
+          >
+            <FaTrash /> Delete
+          </button>
+        </td>
+      </tr>
+    </table>
+    </>
   );
 };
 

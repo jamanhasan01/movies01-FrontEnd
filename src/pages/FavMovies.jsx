@@ -20,13 +20,15 @@ const FavMovies = () => {
       {fvrtmovies.length == 0 ? (
         <Unavailable></Unavailable>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 pb-20 justify-items-center gap-5">
-          {fvrtmovies.map((movie) => (
+        <div className=" space-y-2 pb-20 justify-items-center gap-5 ">
+          {fvrtmovies.slice(0,10).map((movie) => (
             <FvrtMovie key={movie._id} movie={movie}></FvrtMovie>
           ))}
-          <button className="btn text-center col-span-full bg-mainClr">
+        {
+          fvrtmovies.length > 10 && <button className="btn text-center col-span-full bg-mainClr">
             Show More
           </button>
+        }
         </div>
       )}
     </div>
