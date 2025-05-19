@@ -6,6 +6,9 @@ import Upcomming from "../components/Upcomming";
 import { Link } from "react-router-dom";
 import CatagoryOfAction from "../components/CatagoryOfAction";
 import CatagoryOfComedy from "../components/CatagoryOfComedy";
+import CategoryOfHorror from "../components/CategoryOfHorror";
+import CategoryOfThriller from "../components/CategoryOfThriller";
+import CategoryOfDrama from "../components/CategoryOfDrama";
 
 const Home = () => {
   let { movies } = useContext(moviesContext);
@@ -60,6 +63,13 @@ const Home = () => {
         <CatagoryOfAction></CatagoryOfAction>
       </div>
       <div><CatagoryOfComedy></CatagoryOfComedy></div>
+      <div>
+        <CategoryOfHorror></CategoryOfHorror>
+      </div>
+      <div>
+        <CategoryOfThriller></CategoryOfThriller>
+      </div>
+      <div><CategoryOfDrama></CategoryOfDrama></div>
     </div>
   );
 };
